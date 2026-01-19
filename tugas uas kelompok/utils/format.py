@@ -1,38 +1,37 @@
-import os
-from datetime import datetime
+# ============================
+# FORMAT TAMPILAN KASIR
+# ============================
 
-# Bersihkan layar
-def clear():
-    os.system("cls" if os.name == "nt" else "clear")
-
-
-# Pause / tekan enter
-def pause():
-    input("\nTekan ENTER untuk melanjutkan...")
+def garis(panjang=40):
+    return "-" * panjang
 
 
-# Format rupiah
+def judul(text):
+    print(garis())
+    print(text.center(40))
+    print(garis())
+
+
 def rupiah(angka):
     return f"Rp {angka:,.0f}".replace(",", ".")
 
 
-# Ambil tanggal sekarang
-def tanggal_sekarang():
-    return datetime.now().strftime("%Y-%m-%d")
+def header_tabel():
+    print(garis())
+    print(f"{'Kode':<8} {'Nama':<15} {'Harga':<10} {'Stok':<5}")
+    print(garis())
 
 
-# Ambil waktu sekarang
-def waktu_sekarang():
-    return datetime.now().strftime("%H:%M:%S")
+def baris_barang(kode, nama, harga, stok):
+    print(f"{kode:<8} {nama:<15} {rupiah(harga):<10} {stok:<5}")
 
 
-# Cek apakah file ada
-def cek_file(path):
-    return os.path.exists(path)
+def header_transaksi():
+    print(garis())
+    print(f"{'Nama':<15} {'Qty':<5} {'Harga':<10} {'Total':<10}")
+    print(garis())
 
 
-# Buat file jika belum ada
-def buat_file_jika_belum_ada(path, header=""):
-    if not os.path.exists(path):
-        with open(path, "w") as f:
-            f.write(header + "\n")
+def baris_transaksi(nama, qty, harga):
+    total = qty * harga
+    print(f"{nama:<15} {qty:<5} {rupiah(harga):<10} {rupiah(total):<10}")
